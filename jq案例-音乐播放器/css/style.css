@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+#Music {
+    width: 730px;
+    height: 470px;
+    background: #cc66ff;
+    margin: 150px auto 0;
+    box-shadow: 0 0 10px #000;
+    /* box-shadow: 水平偏移 竖直偏移 半径 阴影颜色; */
+}
+
+#Music .Audio {
+    width: 360px;
+    height: 470px;
+    background: #000;
+    float: left;
+}
+
+#Music .Txt {
+    width: 370px;
+    height: 470px;
+    background: url('../images/bg4.png');
+    float: right;
+}
+
+#Music .Audio .title {
+    width: 360px;
+    height: 60px;
+    color: #666;
+    font-size: 20px;
+    font-family: "微雅软黑";
+    line-height: 60px;
+    text-align: center;
+    background: #ff0033;
+    background: url('../images/bg1.jpg');
+}
+
+#Music .Audio .beauty {
+    width: 360px;
+    height: 290px;
+    display: block;
+}
+
+#Music .Audio .Music_But {
+    width: 360px;
+    height: 95px;
+    padding-top: 25px;
+    background: url('../images/bg2.jpg');
+}
+
+#Music .Audio .Music_But .box {
+    margin-left: 30px;
+    width: 300px;
+    height: 5px;
+    background: #ccc;
+}
+
+#Music .Audio .Music_But .volume_bar {
+    margin-top: 5px;
+    width: 300px;
+    height: 4px;
+    background: #f16d6e;
+}
+
+#Music .Audio .Music_But .timeLength {
+    text-align: center;
+    color: #f16d6e;
+}
+
+#Music .Audio .Music_But .but {
+    width: 132px;
+    height: 30px;
+    margin: 0 auto;
+}
+
+#Music .Audio .Music_But .but span {
+    display: block;
+    width: 27px;
+    height: 26px;
+    float: left;
+}
+
+#Music .Audio .Music_But .but .prev {
+    background: url('../images/sm_icon.png') -49px 0;
+}
+
+#Music .Audio .Music_But .but .ifplay {
+    margin: 0 30px;
+    width: 18px;
+    background: url('../images/sm_icon.png') -101px 0;
+}
+
+#Music .Audio .Music_But .but .next {
+    background: url('../images/sm_icon.png') -124px 0;
+}
+
+#Music .Txt .title {
+    width: 370px;
+    height: 60px;
+    color: #fff;
+    font-size: 20px;
+    font-family: "微雅软黑";
+    line-height: 60px;
+    text-align: center;
+    background: #f16d6e;
+}
+
+#Music .Txt ul li {
+    width: 370px;
+    height: 45px;
+    color: #7e868e;
+    text-indent: 30px;
+    font-size: 14px;
+    font-family: "微雅软黑";
+    line-height: 41px;
+    background: url('../images/bg4.png');
+}
+
+#Music .Txt ul li a {
+    display: block;
+    color: #7e868e;
+    height: 44px;
+    background: url('../images/play.png') no-repeat 10px 14px;
+    cursor: pointer;
+}
+
+#Music .Txt ul li a:hover {
+    color: #fff;
+}
+
+#Music .Txt ul li.current a {
+    color: #fff;
+    border-bottom: 1px solid #f16d6e;
+    background: url('../images/pause.png') no-repeat 9px 12px;
+}
