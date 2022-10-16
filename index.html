@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐播放器案例</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="Music">
+        <div class="Audio">
+            <div class="title">一颦一笑深入我心</div>
+            <video src="vedio/beauty.mp4" class="beauty" controls autoplay loop muted></video>
+            <div class="Music_But">
+                <div class="but">
+                    <span class="prev"></span>
+                    <span class="ifplay"></span>
+                    <span class="next"></span>
+                </div>
+                <div class="box">
+                    <div class="volume_bar"></div>
+                </div>
+                <div class="timeLength"></div>
+                <div class="duck">
+                    <img src="images/ludong1.gif" width="360px" height="60px" alt="" class="aduck">
+                </div>
+            </div>
+        </div>
+        <div class="Txt">
+            <div class="title">音乐播放器案例</div>
+            <ul>
+                <li><a href="javascript:;" dataSrc="mp3/beauty.mp3">一颦一笑深入我心</a></li>
+                <li><a href="javascript:;" dataSrc="mp3/NomNomNom.mp3">NomNomNom</a></li>
+                <li><a href="javascript:;" dataSrc="mp3/犯贱 - 徐良 _ 阿悄.mp3">犯贱 - 徐良</a></li>
+                <li><a href="javascript:;" dataSrc="mp3/倔强 - 五月天.mp3">倔强 - 五月天</a></li>
+                <li><a href="javascript:;" dataSrc="mp3/六月的雨 - 胡歌.mp3">六月的雨 - 胡歌</a></li>
+                <li><a href="javascript:;" dataSrc="mp3/周杰伦 - 晴天（电台版） - 周杰伦微博台.mp3">晴天 - 周杰伦</a></li>
+                <li><a href="javascript:;" dataSrc="mp3/我好想你 - 苏打绿.mp3">我好想你 - 苏打绿</a></li>
+                <li><a href="javascript:;" dataSrc="mp3/爱江山更爱美人 - 李丽芬.mp3">爱江山更爱美人 - 李丽芬</a></li>
+                <li><a href="javascript:;" dataSrc="mp3/航天之歌 - 吴兢.mp3">航天之歌 - 吴兢</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script>
+        var MusicSrc = "mp3/beauty.mp3";
+        var Audio = CreatMusic(MusicSrc);
+        var isPlaying = 0;
+        var iLi = 0;
+        var num = 1;
+
+        function CreatMusic(MusicSrc) {
+            var CreatMp3 = $("<audio src=" + MusicSrc + "></audio>").get(0);
+            timeupdate(CreatMp3);
+            return CreatMp3;
+        }
+        // 问题1：点击一次播放一次，点击多次的话太过吵闹。
+        //解决办法：添加暂停
+        $(".but span.ifplay").click(function() {
+            $(".Txt ul li").eq(iLi).addClass("current").siblings("li").removeClass("current");
+            if (isPlaying == 0) {
+                $(this).css("background-position", "-79px 0px");
+                Audio.play();
+                isPlaying = 1;
+            } else {
+                $(this).css("background-position", "-101px 0px");
+                Audio.pause();
+                isPlaying = 0;
+                $(".Txt ul li").removeClass("current");
+            }
+        });
+
+        function playMusic(iLi) {
+            $(".Txt ul li").eq(iLi).addClass("current").siblings("li").removeClass("current");
+            MusicSrc = $(".Txt ul li").eq(iLi).find("a").attr("dataSrc");
+            $(".but span.ifplay").css("background-position", "-79px 0px");
+            Audio.src = MusicSrc;
+            Audio.play();
+            isPlaying = 1;
+        }
+
+        $(".but span.prev").click(function() {
+            if (iLi <= 0) {
+                iLi = 1;
+            }
+            iLi--;
+            playMusic(iLi);
+            console.log(iLi);
+        });
+        $(".but span.next").click(function() {
+
+            if (iLi >= $(".Txt ul li").length - 1) {
+                iLi = $(".Txt ul li").length - 2;
+            }
+            iLi++;
+            playMusic(iLi);
+            console.log(iLi);
+        });
+        $(".Txt ul li").click(function() {
+            iLi = $(this).index();
+            num++;
+            if (num % 2 == 0) {
+                playMusic(iLi);
+            } else {
+                $(".but span.ifplay").css("background-position", "-101px 0px");
+                Audio.pause();
+                isPlaying = 0;
+                $(".Txt ul li").removeClass("current");
+            }
+
+        });
+
+        $(".volume_bar").width(0);
+
+        function timeupdate(Audio) {
+            Audio.addEventListener("timeupdate", function() {
+                var timer = this.currentTime;
+                var total = this.duration;
+                var percent = (timer / total) * 100;
+                if (percent == 100) {
+                    $(".ifplay").css("background-position", "-101px 0px");
+                    Audio.pause();
+                    $(".Txt ul li").removeClass("current");
+                }
+                $(".volume_bar").width(percent + "%");
+                console.log(timer);
+                console.log(total);
+                console.log(percent);
+
+                function fn() {
+                    var timeLength = document.querySelector('.timeLength');
+                    var m0 = parseInt(timer / 60);
+                    m0 = m0 < 10 ? '0' + m0 : m0;
+                    var s0 = parseInt(timer % 60);
+                    s0 = s0 < 10 ? '0' + s0 : s0;
+                    var m1 = parseInt(total / 60);
+                    m1 = m1 < 10 ? '0' + m1 : m1;
+                    var s1 = parseInt(total % 60);
+                    s1 = s1 < 10 ? '0' + s1 : s1;
+                    return timeLength.innerHTML = m0 + ":" + s0 + ' / ' + m1 + ":" + s1;
+                }
+                fn.call();
+            }, false)
+        }
+
+        function nextPlay(src) {
+            Audio.loop = "loop";
+            Audio.volume = 1;
+            Audio.src = src;
+            Audio.play();
+            timeupdate(Audio);
+        }
+    </script>
+</body>
+
+</html>
